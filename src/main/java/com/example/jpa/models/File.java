@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@DiscriminatorValue("F")
+//@DiscriminatorValue("F")
 @Entity
 @EqualsAndHashCode(callSuper=true)
 public class File extends Resource{
