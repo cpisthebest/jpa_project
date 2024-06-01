@@ -3,6 +3,7 @@ package com.example.jpa.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,20 @@ import java.util.List;
 //@Table(name="AUTHOR_TBL")
 @AllArgsConstructor
 @SuperBuilder
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name="Author.findByNamedQuery",
+                        query="select a from Author a where a.age > :age"
+                ),
+
+                @NamedQuery(
+                        name="Author.updateNamedQuery",
+                        query="update Author set age=:age"
+                )
+        }
+)
+
 public class Author extends BaseEntity{
     /** Start : Sequence Generator
     @Id
@@ -50,6 +65,6 @@ public class Author extends BaseEntity{
     private LocalDateTime createdAt;
     @Column(insertable=false)
     private LocalDateTime updatedAt;
-    @ManyToMany(mappedBy="authors")
+    @ManyToMany(mappedBy="authors" , fetch=FetchType.EAGER)
     private List<Course> courses;
 }

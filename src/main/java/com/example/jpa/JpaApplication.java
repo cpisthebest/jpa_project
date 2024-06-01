@@ -21,7 +21,7 @@ public class JpaApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthorRepository authorRepository,
-			VideoRepository videoRepository
+				VideoRepository videoRepository
 	){
 		return args -> {
 			Faker faker = new Faker();
@@ -40,15 +40,20 @@ public class JpaApplication {
 //					.length(6)
 //					.build();
 //			videoRepository.save(video);
-			var author = Author.builder()
-					.id(1)
-					.firstName("CP")
-					.lastName("CP")
-					.email("cp@gmail.com")
-					.age(99999999)
-					.createdAt(LocalDateTime.now())
-					.build();
-			authorRepository.save(author);
+			//to update details for id 1
+//			var author = Author.builder()
+//					.id(1)
+//					.firstName("CP")
+//					.lastName("CP")
+//					.email("cp@gmail.com")
+//					.age(99999999)
+//					.createdAt(LocalDateTime.now())
+//					.build();
+//			authorRepository.save(author);
+			authorRepository.updateAuthor(1,24);
+//			authorRepository.updateAllAges(99);
+			authorRepository.findByNamedQuery(60).forEach(System.out::println);
+			authorRepository.updateNamedQuery(110);
 		};
 	}
 }
