@@ -3,12 +3,14 @@ package com.example.jpa;
 import com.example.jpa.models.Author;
 import com.example.jpa.models.Video;
 import com.example.jpa.repositories.AuthorRepository;
+import com.example.jpa.repositories.AuthorSpecification;
 import com.example.jpa.repositories.VideoRepository;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
 
@@ -50,10 +52,15 @@ public class JpaApplication {
 //					.createdAt(LocalDateTime.now())
 //					.build();
 //			authorRepository.save(author);
-			authorRepository.updateAuthor(1,24);
+//			authorRepository.updateAuthor(1,24);
 //			authorRepository.updateAllAges(99);
-			authorRepository.findByNamedQuery(60).forEach(System.out::println);
-			authorRepository.updateNamedQuery(110);
+//			authorRepository.findByNamedQuery(60).forEach(System.out::println);
+//			authorRepository.updateNamedQuery(110);
+
+		Specification<Author> spec = Specification
+				.where(AuthorSpecification.hasAge(22))
+				.or(AuthorSpecification.firstNameLike("Mi"));
+		authorRepository.findAll(spec).forEach(System.out::println);
 		};
 	}
 }
